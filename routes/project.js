@@ -117,4 +117,20 @@ router.get('/getonemenber',function(req,res){
   
   });
 })
+
+router.get('deleteproject',function(req,res){
+  const removePrj=Project({_id:req.query.id});
+  removePrj.remove()
+  console.log(removePrj)
+  res.send(removePrj)
+})
+
+router.get('deletemenberproject',function(){
+  const removeMBproject=MenberProject({idproject:req.query.idproject});
+  removeMBproject.remove()
+  console.log(removeMBproject)
+  res.send(removeMBproject)
+})
+
+
 module.exports = router;

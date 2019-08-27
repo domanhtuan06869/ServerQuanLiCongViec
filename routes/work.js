@@ -38,8 +38,8 @@ router.get('/', function(req, res, next) {
 //edit add id work and name work
 router.get('/editwork',function(req,res){
 
-  const {id,name,idwork}=req.query;
- MenberWork.findOneAndUpdate({_id:id},{name:name,idwork:idwork},{
+  const {id,name,idwork,idproject,}=req.query;
+ MenberWork.findOneAndUpdate({_id:id},{name:name,idwork:idwork,idproject:idproject},{
     new: true,                    
     runValidators: true             
   })
@@ -125,5 +125,18 @@ router.get('/getall',function(req,res){
   Work.find({idproject:req.query.idproject}).then((docs)=>{
 res.send(docs)
   })
+})
+router.get('/deletework',function(req,res){
+  Work.deleteMany({idproject:req.query.idproject}, function(err,result) {
+ console.log(result)
+ res.send(result)
+  })
+
+})
+router.get('deletemenberwork',function(req,res){
+  const removeMBwork=new MenberWork({idwork:req.query.idwork})
+  removeMBwork.remove()
+  console.log(removeMBwork)
+  res.send(removeMBwork)
 })
 module.exports = router;

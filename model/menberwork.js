@@ -8,6 +8,8 @@ const MenberWorkSchema = new mongoose.Schema({
     },name:{
         type:String,
         require:true
+    },idproject:{
+        type:String
     },
     a0:{
         type:String,
