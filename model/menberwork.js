@@ -1,20 +1,20 @@
 
 const mongoose = require('mongoose');
 
-const MenberProjectSchema = new mongoose.Schema({
-    idproject:{
+const MenberWorkSchema = new mongoose.Schema({
+    idwork:{
         type:String,
         require:true
     },name:{
-        type:String
+        type:String,
+        require:true
     },
     a0:{
         type:String,
         require:true
     },
     a1:{
-    type:String,
-    require:true
+    type:String
     },
     a2:{
     type:String
@@ -26,6 +26,6 @@ const MenberProjectSchema = new mongoose.Schema({
         type:String
       }},{ versionKey: false });
 
-const menberproject = mongoose.model('menberproject', MenberProjectSchema);
+const menberwork = mongoose.model('menberwork', MenberWorkSchema);
 
-module.exports = menberproject;
+module.exports = menberwork;

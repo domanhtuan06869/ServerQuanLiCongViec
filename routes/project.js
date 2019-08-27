@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var Project =new require('../model/project')
-var MenberProject=new require('../model/menberproject')
-var find=require('../config/find')
+var  MenberProject=new require('../model/menberproject')
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -29,7 +29,7 @@ res.send(mbprj._id)
 })
 router.get('/menber', function(req, res, next) {
   Project.findOne({_id:req.query.id}).then((docs)=>{
-console.log(docs)
+  console.log(docs)
     res.send(docs)
   })
 });
@@ -63,7 +63,7 @@ router.get('/getonemenberproject',function(req,res){
 
   MenberProject.findOne({idproject:req.query.idproject}).then((docs)=>{
 
-   console.log(docs)
+  // console.log(docs)
     res.send(docs)
   
   });
@@ -97,13 +97,24 @@ router.get('/editmenberid',function(req,res){
 
  MenberProject.update({_id:idmenber},  {$unset: obj})
   .then(doc => {
- console.log(obj)
+ //console.log(obj)
 
   res.send(doc)
   })
   .catch(err => {
-  //console.error(err)
+
   })
 
+})
+
+//get one object menber
+router.get('/getonemenber',function(req,res){
+
+  MenberProject.findOne({_id:req.query.idmenber}).then((docs)=>{
+
+   //console.log(docs)
+    res.send(docs)
+  
+  });
 })
 module.exports = router;
