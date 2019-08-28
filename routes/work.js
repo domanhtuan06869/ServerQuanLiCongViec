@@ -133,10 +133,17 @@ router.get('/deletework',function(req,res){
   })
 
 })
-router.get('deletemenberwork',function(req,res){
-  const removeMBwork=new MenberWork({idwork:req.query.idwork})
-  removeMBwork.remove()
-  console.log(removeMBwork)
-  res.send(removeMBwork)
+router.get('/deletemenberwork',function(req,res){
+  MenberWork.remove({ idproject: req.query.idproject }, function(err) {
+    if (!err) {
+           console.log('ss')
+           res.send('ss')
+    }
+    else {
+           console.log('err')
+           res.send('err')
+    }
+  
+});
 })
 module.exports = router;

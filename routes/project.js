@@ -118,18 +118,25 @@ router.get('/getonemenber',function(req,res){
   });
 })
 
-router.get('deleteproject',function(req,res){
-  const removePrj=Project({_id:req.query.id});
+router.get('/deleteproject',function(req,res){
+  const removePrj=new Project({_id:req.query.id});
   removePrj.remove()
   console.log(removePrj)
   res.send(removePrj)
 })
 
-router.get('deletemenberproject',function(){
-  const removeMBproject=MenberProject({idproject:req.query.idproject});
-  removeMBproject.remove()
-  console.log(removeMBproject)
-  res.send(removeMBproject)
+router.get('/deletemenberproject',function(req,res){
+  MenberProject.remove({ idproject: req.query.idproject }, function(err) {
+    if (!err) {
+           console.log('ss')
+           res.send('ss')
+    }
+    else {
+           console.log('err')
+           res.send('err')
+    }
+  
+});
 })
 
 
