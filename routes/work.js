@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var Work =new require('../model/work')
 var MenberWork=new require('../model/menberwork')
+var Test=new require('../model/inserttest')
+
 
 /* GET home page. */
 
@@ -146,4 +148,23 @@ router.get('/deletemenberwork',function(req,res){
   
 });
 })
+router.get('/getallworkmenber',function(req,res){
+  MenberWork.find({}).then((docs)=>{
+    res.send(docs)
+  })
+})
+router.post('/test',function(req,res){
+  var str = req.body.email;
+var result = str.split(',');
+  console.log(result)
+  const test=new Test({name:'vdcg',email:result})
+  test.save()
+  //console.log(test)
+  res.send(test)
+  })
+  router.get('/test',function(req,res){
+    Test.findOne({_id:'5d6e2e4cf1741d1c64bdee53',email:{ $all : ["fhgh"] }}).then((docs)=>{
+      res.send(docs.email)
+    })
+  })
 module.exports = router;

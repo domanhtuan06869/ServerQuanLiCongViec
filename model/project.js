@@ -13,6 +13,9 @@ const ProjectSchema = new mongoose.Schema({
   email:{
     type:String
   },
+  emailtag:{
+  type:Array
+  },
   desire:{
     type:String,
     required:true

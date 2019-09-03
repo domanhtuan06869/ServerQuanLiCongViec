@@ -13,8 +13,10 @@ router.get('/', function(req, res, next) {
 });
 router.post('/',function (req,res){
 
-  const {name,company,email,desire,endday,endmonth,endyear,status,description}=req.body
-  const prj=new Project({name:name,email:email,company:company,status:status,desire:desire,endday:endday,endmonth:endmonth,endyear:endyear,description:description});
+  const {name,company,email,emailtag,desire,endday,endmonth,endyear,status,description}=req.body
+  var str = emailtag;
+  var resulttag = str.split(',');
+  const prj=new Project({name:name,email:email,emailtag:resulttag,company:company,status:status,desire:desire,endday:endday,endmonth:endmonth,endyear:endyear,description:description});
   prj.save()
   //console.log(prj)
   res.send(prj._id)
@@ -67,6 +69,7 @@ router.get('/getonemenberproject',function(req,res){
     res.send(docs)
   
   });
+
 })
 
 
