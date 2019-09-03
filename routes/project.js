@@ -63,10 +63,10 @@ router.get('/getallmenber',function(req,res){
 
 router.get('/getonemenberproject',function(req,res){
 
-  MenberProject.findOne({idproject:req.query.idproject}).then((docs)=>{
+  Project.findOne({_id:req.query.idproject}).then((docs)=>{
 
   // console.log(docs)
-    res.send(docs)
+    res.send(docs.emailtag)
   
   });
 
