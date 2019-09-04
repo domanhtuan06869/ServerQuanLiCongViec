@@ -11,11 +11,13 @@ var Test=new require('../model/inserttest')
 //add work
 router.post('/',function (req,res){
 
-  const {name,email,target,endday,endmonth,endyear,status,description,nameproject,idproject}=req.body
-  const work=new Work({name:name,email:email,target:target,status:status,endday:endday,endmonth:endmonth,endyear:endyear,description:description,nameproject:nameproject,idproject:idproject});
+  const {name,email,target,endday,endmonth,endyear,status,description,nameproject,idproject,emailtag}=req.body
+ 
+  var resulttag = emailtag.split(',');
+  const work=new Work({name:name,email:email,emailtag:resulttag,target:target,status:status,endday:endday,endmonth:endmonth,endyear:endyear,description:description,nameproject:nameproject,idproject:idproject});
   work.save()
   //console.log(prj)
-  res.send(work._id)
+  res.send(work)
 })
 
 
