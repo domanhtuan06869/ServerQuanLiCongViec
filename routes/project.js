@@ -109,7 +109,7 @@ router.get('/deletemenberproject',function(req,res){
 })
 router.get('/getprojectwithmenber',function(req,res){
   const {email}=req.query
-  Project.find({_id:'5d6e2e4cf1741d1c64bdee53',emailtag:{ $all : [email] }}).then((docs)=>{
+  Project.find({emailtag:{ $all : [email] }}).then((docs)=>{
     res.send(docs)
   })
 })
