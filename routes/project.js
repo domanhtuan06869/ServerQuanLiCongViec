@@ -101,8 +101,8 @@ router.get('/deleteproject',function(req,res){
 
 
 router.get('/deletemenberproject',function(req,res){
-  const {id,email}=req.query
- Project.update({ _id: '5d6e3f816fef5f00047c2a79' }, { $pull: { emailtag:{$in: ['tt@gmail.com']}}}).then((doc)=>{
+  const {idproject,email}=req.query
+ Project.update({ _id:idproject}, { $pull: { emailtag:{$in: [email]}}}).then((doc)=>{
   res.send(doc)
  })
 
