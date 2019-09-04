@@ -6,7 +6,9 @@ const WorkSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-
+  emailtag:{
+    type:Array
+  },
   email:{
     type:String
   },
