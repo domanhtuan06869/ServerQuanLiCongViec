@@ -22,19 +22,7 @@ router.post('/',function (req,res){
   res.send(prj._id)
 })
 
-router.post('/menber',function(req,res){
-const {a0:a0,a1,a2,a3,a4}=req.body
-const mbprj=new MenberProject({a0:a0,a1:a1,a2:a2,a3:a3,a4:a4})
-mbprj.save()
-//console.log(mbprj._id)
-res.send(mbprj._id)
-})
-router.get('/menber', function(req, res, next) {
-  Project.findOne({_id:req.query.id}).then((docs)=>{
-  console.log(docs)
-    res.send(docs)
-  })
-});
+
 router.get('/editmenber',function(req,res){
 
   const {id,name,idproject}=req.query;
@@ -52,14 +40,7 @@ router.get('/editmenber',function(req,res){
   })
 
 })
-router.get('/getallmenber',function(req,res){
-  MenberProject.find({}).then((docs)=>{
 
-    res.send(docs)
-  
-  });
-
-})
 
 router.get('/getonemenberproject',function(req,res){
 
@@ -110,17 +91,6 @@ router.get('/editmenberid',function(req,res){
 
 })
 
-//get one object menber
-router.get('/getonemenber',function(req,res){
-
-  MenberProject.findOne({_id:req.query.idmenber}).then((docs)=>{
-
-   //console.log(docs)
-    res.send(docs)
-  
-  });
-})
-
 router.get('/deleteproject',function(req,res){
   const removePrj=new Project({_id:req.query.id});
   removePrj.remove()
@@ -128,19 +98,20 @@ router.get('/deleteproject',function(req,res){
   res.send(removePrj)
 })
 
-router.get('/deletemenberproject',function(req,res){
-  MenberProject.remove({ idproject: req.query.idproject }, function(err) {
-    if (!err) {
-           console.log('ss')
-           res.send('ss')
-    }
-    else {
-           console.log('err')
-           res.send('err')
-    }
-  
-});
-})
 
+
+router.get('/deletemenberproject',function(req,res){
+  const {id,email}=req.query
+ Project.update({ _id: '5d6e3f816fef5f00047c2a79' }, { $pull: { emailtag:{$in: ['tt@gmail.com']}}}).then((doc)=>{
+  res.send(doc)
+ })
+
+})
+router.get('/getprojectwithmenber',function(req,res){
+  const {email}=req.query
+  Project.find({_id:'5d6e2e4cf1741d1c64bdee53',emailtag:{ $all : [email] }}).then((docs)=>{
+    res.send(docs)
+  })
+})
 
 module.exports = router;
