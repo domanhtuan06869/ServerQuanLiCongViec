@@ -22,13 +22,7 @@ router.post('/',function (req,res){
 
 
 //addmenber work
-router.post('/workmenber',function(req,res){
-const {a0:a0,a1,a2,a3,a4}=req.body
-const mbwork=new MenberWork({a0:a0,a1:a1,a2:a2,a3:a3,a4:a4})
-mbwork.save()
-console.log(mbwork)
-res.send(mbwork._id)
-})
+
 
 //get work with id
 router.get('/', function(req, res, next) {
@@ -167,6 +161,12 @@ var result = str.split(',');
   router.get('/test',function(req,res){
     Test.findOne({_id:'5d6e2e4cf1741d1c64bdee53',email:{ $all : ["fhgh"] }}).then((docs)=>{
       res.send(docs.email)
+    })
+  })
+  router.get('/getworkwithmenber',function(req,res){
+    const {email}=req.query
+    Work.find({emailtag:{ $all : [email] }}).then((docs)=>{
+      res.send(docs)
     })
   })
 module.exports = router;

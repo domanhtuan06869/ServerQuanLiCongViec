@@ -6,16 +6,21 @@ var logger = require('morgan');
 const mongoose= require('mongoose')
 
 const url=require('./config/config')
-
+var socket = require('socket.io');
+var app = express();
+var io = socket();
+app.io = io;
 
 
 mongoose.connect(url,{useNewUrlParser: true}).then(()=>{
   console.log('ket noi thanh cong')
 })
-var indexRouter = require('./routes/index');
+
+var indexRouter = require('./routes/index')(io);
 var usersRouter = require('./routes/users');
 
-var app = express();
+
+
 
 
 // view engine setup
@@ -32,6 +37,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/project',require('./routes/project'))
 app.use('/work',require('./routes/work'))
+app.use('/chat',require('./routes/chat')(io))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

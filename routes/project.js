@@ -114,4 +114,32 @@ router.get('/getprojectwithmenber',function(req,res){
   })
 })
 
+router.get('/getoneproject',function(req,res){
+  Project.findOne({_id:req.query.id}).then((doc)=>{
+    res.send(doc)
+  })
+
+})
+router.post('/editproject',function(req,res){
+
+  const {id,name,status,endday,endmonth,endyear,desire,emailtag,description,company}=req.body;
+  Project.findOneAndUpdate({_id:id},{name:name,status:status,description:description,endday:endday,endmonth:endmonth,endyear:endyear,desire:desire,company:company,emailtag:emailtag.split(',')},{
+    new: true,                    
+    runValidators: true             
+  })
+  .then(doc => {
+ 
+      res.send(doc)
+  })
+  .catch(err => {
+  console.error(err)
+  })
+
+
+
+  
+
+
+
+})
 module.exports = router;
