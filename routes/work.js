@@ -3,6 +3,8 @@ var router = express.Router();
 var Work =new require('../model/work')
 var MenberWork=new require('../model/menberwork')
 var Test=new require('../model/inserttest')
+var sql = require('mssql');
+var request= new sql.Request()
 
 
 /* GET home page. */
@@ -168,5 +170,58 @@ var result = str.split(',');
     Work.find({emailtag:{ $all : [email] }}).then((docs)=>{
       res.send(docs)
     })
+  })
+
+  /*-----------------------------------------sql--------------------------------------------------------------*/
+
+
+  router.post('/insertwork',function(req,res){
+    const {name,email,target,endtime,starttime,status,description,id,idproject,emailtag}=req.body
+var startd=new Date(starttime)
+var endd=new Date(endtime)
+  
+  var resulttag = emailtag.split(',');
+    var request= new sql.Request();
+    request.input('id',id)
+    request.input('idduan',idproject)
+    request.input('email',email)
+    request.input('tencongviec',name)
+    request.input('trangthai',status)
+    request.input('muctieu',target)
+    request.input('thoigianstart',startd)
+    request.input('thoigianend',endd)
+    request.input('mota',description).execute('insertcongviec').then(function(recordset){
+      var id=recordset.recordset[0].id
+     for(let i=0;i<resulttag.length;i++){
+        var request=new sql.Request()
+        request.input('idduan',idproject)
+        request.input('idcongviec',id)
+        request.input('emaitag',resulttag[i]).execute('insertemaitagcongviec').then(function(recordset){
+        // console.log(recordset)
+        })
+      }
+      console.log(recordset.recordset)
+      res.send(recordset.recordset)
+    }).catch(err=>{
+      console.log(err)
+      res.send('err')
+
+    })
+  })
+
+  //get data work with id du an
+  router.get('/getworksql',function(req,res){
+    console.log(req.query.idproject)
+    var request=new sql.Request()
+        request.input('idduan',req.query.idproject).execute('getwork').then(function(recordset){
+          res.send(recordset.recordset)
+        })
+  })
+
+  router.get('/getworkwithid',function(req,res){
+    var request=new sql.Request()
+        request.input('idwork',req.query.idwork).execute('getworkwithid').then(function(recordset){
+          res.send(recordset.recordset[0])
+        })
   })
 module.exports = router;

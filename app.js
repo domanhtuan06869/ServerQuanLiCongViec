@@ -4,15 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose= require('mongoose')
-
+var sql = require('mssql');
 const url=require('./config/config')
 var socket = require('socket.io');
 var app = express();
 var io = socket();
 app.io = io;
 
+sql.connect(url.cofig, function (err) {
 
-mongoose.connect(url,{useNewUrlParser: true}).then(()=>{
+  if (err){console.log(err)}else{console.log('sql connected')} ;
+
+});
+
+mongoose.connect(url.url,{useNewUrlParser: true}).then(()=>{
   console.log('ket noi thanh cong')
 })
 
@@ -37,7 +42,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/project',require('./routes/project'))
 app.use('/work',require('./routes/work'))
-app.use('/chat',require('./routes/chat')(io))
+app.use('/chat',require('./routes/chat'))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
