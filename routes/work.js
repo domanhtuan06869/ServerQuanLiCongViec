@@ -223,7 +223,7 @@ var result = str.split(',');
   })
   router.get('/ccc',function(req,res){
     var request=new sql.Request()
-    request.query('select * from duan').then(function(recordset){
+    request.query('select * from hs').then(function(recordset){
       res.send(recordset)
     })
   })

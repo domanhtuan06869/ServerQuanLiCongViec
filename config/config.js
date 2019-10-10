@@ -1,10 +1,10 @@
 const url='mongodb+srv://domanhtuan:manhtuan@cluster0-rqhdt.mongodb.net/manager?retryWrites=true&w=majority'
 const cofig={
-    user: 'sa',
+    user: 'DB_A4EB87_domanhtuan_admin',
         password: 'manhtuan9x',
-        server: '192.168.1.226', 
-        database: 'project',
-        port:1433
+        server: 'sql5045.site4now.net', 
+        database: 'DB_A4EB87_domanhtuan',
+     
 }
 module.exports={
     url,
