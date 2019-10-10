@@ -2,7 +2,7 @@ const url='mongodb+srv://domanhtuan:manhtuan@cluster0-rqhdt.mongodb.net/manager?
 const cofig={
     user: 'sa',
         password: 'manhtuan9x',
-        server: 'localhost', 
+        server: '192.168.43.166', 
         database: 'project',
         port:1433
 }

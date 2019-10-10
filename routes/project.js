@@ -168,16 +168,6 @@ router.get('/hihi',function(req,res){
     });
   }
  
- /* let query = "exec InsertStoreEmaitag @idproject=" + '143'+',@email='+'sfsf' ;
-  request.query(query, function (err, recordset) {
-
-    if (err) console.log(err)
-
-
-  console.log(recordset)
-  res.send(JSON.stringify(recordset))
-
-});*/
 
 })
 /*--------------------------------------------------------sql----------------------------------------------------------*/
@@ -187,18 +177,17 @@ router.post('/insertproject',function(req,res){
   var str = emailtag;
   var resulttag = str.split(',');
   var tokentag = token.split(',');
-  var startd=new Date(starttime)
-  var endd=new Date(endtime)
+
   request.input('id',id)
   request.input('tenduan',name)
   request.input('email',email)
   request.input('congty',company)
   request.input('mongmuon',desire)
-  request.input('thoigianstart',startd)
-  request.input('thoigianend',endd)
+  request.input('thoigianstart',starttime)
+  request.input('thoigianend',endtime)
   request.input('trangthai',status)
   request.input('mota',description).execute('insertduan').then( function(recordset){
-    console.log(recordset.recordset)
+  //  console.log(recordset.recordset)
 
     for(let i=0;i<resulttag.length;i++){
       var request = new sql.Request();
@@ -212,12 +201,16 @@ res.end(JSON.stringify(recordset))
     }).catch(err=>{})
     
     }
-    push('bạn có dự án mới',tokentag)
-
+    push('bạn được giao  dự án mới',tokentag)
+     var date=new Date()
+     var dateend=new Date(endtime)
+     var c= dateend-date-30000
+     console.log(c)
     const t = new MyTimeout();
    t.setTimeout(id, () => { 
-   push('sắp hết hạn'+id,tokentag)
-}, 5000);
+  push('Dự án của bạn sắp hết hạn rồi kìa'+id,tokentag)
+  
+},c);
     res.send(recordset.recordset)
   })
 
@@ -265,15 +258,13 @@ router.post('/updateprojectsql',function(req,res){
   var str = emailtag;
   var resulttag = str.split(',');
   var tokentag=token.split(',')
-  var startd=new Date(starttime)
-  var endd=new Date(endtime)
   request.input('id',id)
   request.input('tenduan',name)
   request.input('email',email)
   request.input('congty',company)
   request.input('mongmuon',desire)
-  request.input('thoigianstart',startd)
-  request.input('thoigianend',endd)
+  request.input('thoigianstart',starttime)
+  request.input('thoigianend',endtime)
   request.input('trangthai',status)
   request.input('mota',description).execute('updateduan').then( function(recordset){
    var request=new sql.Request()

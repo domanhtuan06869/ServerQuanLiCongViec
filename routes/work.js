@@ -5,9 +5,7 @@ var MenberWork=new require('../model/menberwork')
 var Test=new require('../model/inserttest')
 var sql = require('mssql');
 var request= new sql.Request()
-
-
-/* GET home page. */
+const url=require('../config/config')
 
 
 //add work
@@ -176,11 +174,10 @@ var result = str.split(',');
 
 
   router.post('/insertwork',function(req,res){
-    const {name,email,target,endtime,starttime,status,description,id,idproject,emailtag}=req.body
-var startd=new Date(starttime)
-var endd=new Date(endtime)
+    const {name,email,target,endtime,starttime,status,description,id,idproject,emailtag,token}=req.body
   
   var resulttag = emailtag.split(',');
+  var tokentag=token.split(',');
     var request= new sql.Request();
     request.input('id',id)
     request.input('idduan',idproject)
@@ -188,14 +185,15 @@ var endd=new Date(endtime)
     request.input('tencongviec',name)
     request.input('trangthai',status)
     request.input('muctieu',target)
-    request.input('thoigianstart',startd)
-    request.input('thoigianend',endd)
+    request.input('thoigianstart',starttime)
+    request.input('thoigianend',endtime)
     request.input('mota',description).execute('insertcongviec').then(function(recordset){
       var id=recordset.recordset[0].id
      for(let i=0;i<resulttag.length;i++){
         var request=new sql.Request()
         request.input('idduan',idproject)
         request.input('idcongviec',id)
+         request.input('token',tokentag[i])
         request.input('emaitag',resulttag[i]).execute('insertemaitagcongviec').then(function(recordset){
         // console.log(recordset)
         })
@@ -203,7 +201,7 @@ var endd=new Date(endtime)
       console.log(recordset.recordset)
       res.send(recordset.recordset)
     }).catch(err=>{
-      console.log(err)
+    // console.log(err)
       res.send('err')
 
     })
@@ -224,4 +222,25 @@ var endd=new Date(endtime)
           res.send(recordset.recordset[0])
         })
   })
+  router.get('/cc',function(req,res){
+    
+    sql.connect({
+      user: 'sa',
+          password: req.query.pass,
+          server: '192.168.43.166', 
+          database: 'project',
+          port:1433}, function (err) {
+
+      if (err){console.log(err)}else{console.log('sql connected')} ;
+    res.send('connect')
+    });
+  
+  })
+  router.get('/ee',function(req,res){
+    var request=new sql.Request()
+    request.query('select * from duan').then(function(recordset){
+      res.send(recordset)
+    })
+  })
+  
 module.exports = router;
