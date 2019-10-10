@@ -13,9 +13,9 @@ app.io = io;
 
 
 
-mongoose.connect(url.url,{useNewUrlParser: true}).then(()=>{
+/*mongoose.connect(url.url,{useNewUrlParser: true}).then(()=>{
   console.log('ket noi thanh cong')
-})
+})*/
 
 var indexRouter = require('./routes/index')(io);
 var usersRouter = require('./routes/users');

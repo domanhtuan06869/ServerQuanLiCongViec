@@ -242,5 +242,11 @@ var result = str.split(',');
       res.send(recordset)
     })
   })
+  router.get('/bb',function(req,res){
+    
+    sql.close()
+    res.send('ok')
+  
+  })
   
 module.exports = router;
