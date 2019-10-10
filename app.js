@@ -11,11 +11,15 @@ var app = express();
 var io = socket();
 app.io = io;
 
+sql.connect(url.cofig, function (err) {
 
+  if (err){console.log(err)}else{console.log('sql connected')} ;
 
-/*mongoose.connect(url.url,{useNewUrlParser: true}).then(()=>{
+});
+
+mongoose.connect(url.url,{useNewUrlParser: true}).then(()=>{
   console.log('ket noi thanh cong')
-})*/
+})
 
 var indexRouter = require('./routes/index')(io);
 var usersRouter = require('./routes/users');

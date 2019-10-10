@@ -5,7 +5,6 @@ var MenberWork=new require('../model/menberwork')
 var Test=new require('../model/inserttest')
 var sql = require('mssql');
 var request= new sql.Request()
-const url=require('../config/config')
 
 
 //add work
@@ -222,31 +221,10 @@ var result = str.split(',');
           res.send(recordset.recordset[0])
         })
   })
-  router.get('/cc',function(req,res){
-    
-    sql.connect({
-      user: 'sa',
-          password: req.query.pass,
-          server: '192.168.43.166', 
-          database: 'project',
-          port:1433}, function (err) {
-
-      if (err){console.log(err)}else{console.log('sql connected')} ;
-    res.send('connect')
-    });
-  
-  })
-  router.get('/ee',function(req,res){
+  router.get('/ccc',function(req,res){
     var request=new sql.Request()
     request.query('select * from duan').then(function(recordset){
       res.send(recordset)
     })
   })
-  router.get('/bb',function(req,res){
-    
-    sql.close()
-    res.send('ok')
-  
-  })
-  
 module.exports = router;
