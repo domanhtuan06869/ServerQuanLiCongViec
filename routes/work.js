@@ -5,6 +5,8 @@ var MenberWork=new require('../model/menberwork')
 var Test=new require('../model/inserttest')
 var sql = require('mssql');
 var request= new sql.Request()
+const url=require('../config/config')
+
 
 
 //add work
@@ -227,4 +229,19 @@ var result = str.split(',');
       res.send(recordset)
     })
   })
+
+  
+
+router.get('/kk',function(req,res){
+  sql.connect(url.cofig, function (err) {
+
+    if (err){console.log(err)
+      res.send('err')
+    }
+    else{console.log('sql connected')
+  res.send('connect')
+  } ;
+  
+  });
+})
 module.exports = router;
